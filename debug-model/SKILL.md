@@ -43,6 +43,12 @@ regression after a MAX upgrade — anywhere a trusted reference exists.
 | [agent-workflow.md](references/agent-workflow.md)                         | Dispatching parallel investigation agents                       |
 | [stacked-failures.md](references/stacked-failures.md)                     | A fix helped but verification still fails                       |
 
+For MAX's built-in runtime debugging options (NaN checks, source tracebacks,
+op logging), see
+[the MAX debugging tools](https://docs.modular.com/max/develop/debugging/).
+`max.nn.hooks.PrintHook` (covered in comparator-build.md) prints layer
+inputs and outputs for quick triage.
+
 ## Protocol
 
 ### Step 0: Sanity-check HF

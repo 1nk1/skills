@@ -166,6 +166,34 @@ Run: `PORT_DUMP=1 pixi run python dump_max_layers.py`
 Cold compile time matches serve cold compile (~5 to 25 min depending on
 model). The dump itself is under one second.
 
+### Quick inspection with `PrintHook`
+
+The tensor dumpers above save each layer's activations to disk for offline
+diffing. For a faster look that needs no graph edits, `max.nn.hooks.PrintHook`
+prints every layer's inputs and outputs as the model runs:
+
+```python
+from max.nn.hooks import PrintHook
+
+hook = PrintHook()
+hook.name_layers(model)   # name layers by attribute path; V2 and V3
+# build and execute the graph
+hook.remove()
+```
+
+`PrintHook` attaches to MAX models only (V2 `Layer` or V3 `Module`). When the
+reference is a MAX ModuleV2 implementation (common when bringing up a ModuleV3
+port), add the same hook to both, run them, and compare the printed layer
+values to find the first one that disagrees. When the reference is a
+`transformers` model, hook it with the PyTorch forward hooks from Artifact 1
+instead. For multi-device (distributed) tensors, `F.print(value, name)` from
+`max.experimental.functional` prints each shard with its device.
+
+`PrintHook` prints to the console, so it suits quick triage, not repeatable
+diffing. For cosine comparison across a full run, use the saved-dump comparator
+above. For MAX's other built-in debugging options, see
+[the MAX debugging tools](https://docs.modular.com/max/develop/debugging/).
+
 ## Artifact 3: Comparator
 
 ```python
