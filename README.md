@@ -142,6 +142,21 @@ serving failures from incorrect model answers, and writes reproducible
 per-task scores. Pair it with `import-model` and `debug-model` to confirm
 accuracy once a newly imported model serves correctly.
 
+### `serve-model`
+
+[This skill](serve-model/SKILL.md) takes you from no environment to a running,
+OpenAI-compatible endpoint with MAX's `max serve` command. It sets up the
+environment (pixi or uv with the nightly channel), points the server at a
+Hugging Face repo or local checkpoint, targets a custom architecture with
+`--custom-architectures`, and chooses the serve flags that fit the model rather
+than guessing. It's triggered when you ask your agent to run, launch, or host a
+model on MAX, bring up an OpenAI-compatible endpoint, serve a custom or ported
+architecture, or debug a `max serve` startup failure.
+
+Pair it with `import-model`: once you've ported an architecture, `serve-model`
+gets it running and helps pick the flags it needs (devices, quantization
+encoding, max length, task, and `trust-remote-code`).
+
 ## Examples
 
 Once these skills are installed, you can use them for many common tasks.
