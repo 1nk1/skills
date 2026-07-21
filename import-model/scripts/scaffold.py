@@ -176,7 +176,6 @@ from .model_config import {short}Config
     pipeline_model={short}Model,
     tokenizer=TextTokenizer,
     context_type=TextContext,
-    rope_type="normal",  # TODO: "neox" / "longrope" / "none" if applicable
     default_weights_format=WeightsFormat.safetensors,
     weight_adapters={{
         WeightsFormat.safetensors: weight_adapters.convert_safetensor_state_dict,
@@ -461,7 +460,7 @@ def main(args: argparse.Namespace) -> int:
         print(
             f"  4. Open {dst}/weight_adapters.py — add rewrites if HF keys differ"
         )
-        print(f"  5. Open {dst}/arch.py — verify rope_type, encoding, repo_ids")
+        print(f"  5. Open {dst}/arch.py — verify encoding, repo_ids")
     print()
     print("Do not serve until the smoke gate passes.")
     print(f"  port_dir: {dst.resolve()}")
